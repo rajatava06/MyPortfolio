@@ -4,13 +4,17 @@ import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 
 export const Social = () => {
   return (
-     <section
-      id="social"
-      className="min-h-screen flex items-center justify-center py-20"
-    >
+    
+    
 
     <RevealOnScroll>
-    <div className="flex justify-center space-x-6 mt-8 pb-12 text-white text-2xl">
+       
+      
+    <div id="social"
+      
+       className="flex justify-center space-x-6 mt-8 pb-12 text-white text-2xl"
+       >
+      
       <a
         href="https://instagram.com/"
         target="_blank"
@@ -40,6 +44,5 @@ export const Social = () => {
       </a>
     </div>
     </RevealOnScroll>
-    </section>
   );
 };
