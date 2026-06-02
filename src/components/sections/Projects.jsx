@@ -13,33 +13,6 @@ export const Projects = () => {
             Featured Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition">
-              <h3 className="text-xl font-bold mb-2"> Online AI Study Platform</h3>
-              <p className="text-gray-400 mb-4">
-                AI enabled study material with handwritten notes of all subjects including a working CHATBOT for assisting the students in their studies.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {[ "HTML", "CSS", "JavaScript"].map((tech, key) => (
-                  <span
-                    key={key}
-                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 
-                                    hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all
-                    "
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex justify-between items-center">
-                <a
-                  href="https://novamind-lovat.vercel.app/"
-                  className="text-red-400 hover:text-blue-300 transition-colors my-4"
-                >
-                  View Project →
-                </a>
-              </div>
-            </div>
             <div
               className="
               glass p-6 rounded-xl border border-white/10 
@@ -48,12 +21,12 @@ export const Projects = () => {
               transition-all
             "
             >
-              <h3 className="text-xl font-bold mb-2">Age Calculator</h3>
+              <h3 className="text-xl font-bold mb-2">CryptoTransfer</h3>
               <p className="text-gray-400 mb-4">
-                This is a simple Age Calculator that can be used to calculate the age of a person based on the date of birth and the current date.
+                A website to encrypt and decrypt files locally using AES-256-GCM technology and also peer to peer transfer using WebRTC channels for encrypted transfer of files.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {["Python", "HTML", "CSS", "JavaScript"].map((tech, key) => (
+                {["ReactJs", "PeerJs", "WebSocket", "Python"].map((tech, key) => (
                   <span
                     key={key}
                     className="
@@ -70,7 +43,9 @@ export const Projects = () => {
               </div>
               <div className="flex justify-between items-center">
                 <a
-                  href="https://github.com/rajatava06/AgeCalculator-KIITPD2S"
+                  href="https://cryptotransfer-indol.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-red-400 hover:text-blue-300 transition-colors my-4"
                 >
                   View Project →
@@ -88,8 +63,8 @@ export const Projects = () => {
             >
               <h3 className="text-xl font-bold mb-2">E-Commerce Web App</h3>
               <p className="text-gray-400 mb-4">
-                Full-stack e-commerce with modern UI, secure payment
-                integration, and customizable product inventory.
+                Full-stack e-commerce web app with modern UI, secure payment
+                integration, and customizable product inventory. Build for interactive user shopping.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {["Next.js", "TypeScript", "Stripe", "PostgreSQL"].map(
@@ -111,7 +86,9 @@ export const Projects = () => {
               </div>
               <div className="flex justify-between items-center">
                 <a
-                  href="#"
+                  href="https://github.com/rajatava06/ecommerce-nextjs-fullstack-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-red-400 hover:text-blue-300 transition-colors my-4"
                 >
                   View Project →
@@ -127,13 +104,12 @@ export const Projects = () => {
               transition-all
             "
             >
-              <h3 className="text-xl font-bold mb-2">Real-Time Chat App</h3>
+              <h3 className="text-xl font-bold mb-2">K-Forum</h3>
               <p className="text-gray-400 mb-4">
-                Scalable chat platform supporting real-time messaging, presence,
-                and group chat features.
+                A student-community platform designed to strengthen the bond between students of different branches by providing them a common ground to interact.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {["Socket.IO", "Express", "React", "Redis"].map((tech, key) => (
+                {["ReactJs", "MongoDB", "NodeJs", "Cloudinary"].map((tech, key) => (
                   <span
                     key={key}
                     className="
@@ -150,7 +126,39 @@ export const Projects = () => {
               </div>
               <div className="flex justify-between items-center ">
                 <a
-                  href="#"
+                  href="https://k-forum-tau.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-red-400 hover:text-blue-300 transition-colors my-4"
+                >
+                  View Project →
+                </a>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-xl border border-white/10 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-[0_2px_8px_rgba(59,130,246,0.2)] transition">
+              <h3 className="text-xl font-bold mb-2"> Online AI Study Platform</h3>
+              <p className="text-gray-400 mb-4">
+                AI enabled study material with handwritten notes of all subjects including a working CHATBOT for assisting the students in their studies and resources to help them solve questions easily.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {["HTML", "CSS", "JavaScript"].map((tech, key) => (
+                  <span
+                    key={key}
+                    className="bg-blue-500/10 text-blue-500 py-1 px-3 rounded-full text-sm hover:bg-blue-500/20 
+                                    hover:shadow-[0_2px_8px_rgba(59,130,246,0.1)] transition-all
+                    "
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex justify-between items-center">
+                <a
+                  href="https://novamind-lovat.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-red-400 hover:text-blue-300 transition-colors my-4"
                 >
                   View Project →
