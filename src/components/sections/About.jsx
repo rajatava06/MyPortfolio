@@ -3,13 +3,13 @@ import { RevealOnScroll } from "../RevealOnScroll";
 export const About = () => {
   const frontendSkills = [
     "React",
-    "Vue",
+    "Next",
     "TypeScript",
     "TailwindCSS",
-    "Svelte",
+    "Dart",
   ];
 
-  const backendSkills = ["Node.js", "Python", "AWS", "MongoDB", "GraphQL"];
+  const backendSkills = ["Node.js", "Python", "AWS", "MongoDB", "Postman"];
 
   return (
     <section
@@ -72,8 +72,8 @@ export const About = () => {
                   (2024-2028)
                 </li>
                 <li>
-                  Relevant Coursework: Data Structures, Web Development, Cloud
-                  Computing, Machine Learning, AI with Python, C, C++, Java.. 
+                  Relevant Coursework: Data Structures, Web Development, Digital System Designs, Cloud
+                  Computing, Machine Learning, AI with Python, C, Java.
                 </li>
               </ul>
             </div>
@@ -83,10 +83,10 @@ export const About = () => {
                 <div>
                   <h4 className="font-semibold">
                     {" "}
-                    Front-End Web Developer at FED KIIT (Present){" "}
+                    Senior Technical Executive - <p>FED KIIT (Present){" "}</p>
                   </h4>
                   <p>
-                    Developed and maintained FED KIIT website
+                    Manage and maintain FED KIIT website.
                   </p>
                 </div>
 
@@ -97,7 +97,7 @@ export const About = () => {
                   </h4>
                   <p>
                     Assist in building front-end components and integration
-                    of APIs
+                    of Espresso Stream Ciphers
                   </p>
                 </div>
               </div>
