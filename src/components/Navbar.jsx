@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 
-export const Navbar = ({ menuOpen, setMenuOpen, activeSection, setActiveSection }) => {
+export const Navbar = ({ isLoaded, menuOpen, setMenuOpen, activeSection, setActiveSection }) => {
   const [visible, setVisible] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    if (isLoaded) {
+      const timer = setTimeout(() => setIsMounted(true), 200);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -40,14 +48,16 @@ export const Navbar = ({ menuOpen, setMenuOpen, activeSection, setActiveSection 
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50 transition-all duration-300 ease-out bg-black/45 backdrop-blur-xl border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50 transition-all duration-500 ease-out bg-black/45 backdrop-blur-xl border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] ${
         menuOpen
-          ? "rounded-2xl md:rounded-full px-5 py-4"
-          : "rounded-2xl md:rounded-full px-5 py-2.5"
+          ? "rounded-2xl px-5 py-4"
+          : "rounded-2xl px-5 py-2.5"
       } ${
-        visible || menuOpen
-          ? "translate-y-0 opacity-100 pointer-events-auto"
-          : "-translate-y-28 opacity-0 pointer-events-none"
+        !isMounted
+          ? "opacity-0 scale-x-75 scale-y-75 -translate-y-10 pointer-events-none"
+          : visible || menuOpen
+          ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-28 pointer-events-none"
       }`}
     >
       {/* Header Bar */}
@@ -104,7 +114,7 @@ export const Navbar = ({ menuOpen, setMenuOpen, activeSection, setActiveSection 
       <div
         className={`md:hidden overflow-hidden transition-all duration-400 ease-in-out ${
           menuOpen
-            ? "max-h-80 opacity-100 mt-3 pt-3 border-t border-white/15"
+            ? "max-h-[400px] opacity-100 mt-3 pt-3 border-t border-white/15"
             : "max-h-0 opacity-0 mt-0 pt-0 border-t-0 pointer-events-none"
         }`}
       >

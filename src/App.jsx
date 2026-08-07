@@ -59,6 +59,7 @@ function App() {
 
         <div className="relative z-10">
           <Navbar
+            isLoaded={isLoaded}
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
             activeSection={activeSection}

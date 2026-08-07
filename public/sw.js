@@ -9,6 +9,9 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Ignore non-HTTP requests (like chrome-extension://)
+  if (!event.request.url.startsWith('http')) return;
+
   // Pass-through fetch handler to satisfy PWA installability requirements
   event.respondWith(
     fetch(event.request).catch((err) => {
