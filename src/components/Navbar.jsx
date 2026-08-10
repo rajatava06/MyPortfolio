@@ -43,22 +43,20 @@ export const Navbar = ({ isLoaded, menuOpen, setMenuOpen, activeSection, setActi
     { id: "about", label: "About" },
     { id: "projects", label: "Projects" },
     { id: "contact", label: "Get In Touch" },
-    { id: "social", label: "Social" },
+    { id: "social", label: "Socials" },
   ];
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50 transition-all duration-500 ease-out bg-black/45 backdrop-blur-xl border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] ${
-        menuOpen
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50 transition-all duration-500 ease-out bg-black/45 backdrop-blur-xl border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] ${menuOpen
           ? "rounded-2xl px-5 py-4"
           : "rounded-2xl px-5 py-2.5"
-      } ${
-        !isMounted
+        } ${!isMounted
           ? "opacity-0 scale-x-75 scale-y-75 -translate-y-10 pointer-events-none"
           : visible || menuOpen
-          ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 -translate-y-28 pointer-events-none"
-      }`}
+            ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-28 pointer-events-none"
+        }`}
     >
       {/* Header Bar */}
       <div className="flex justify-between items-center h-10 md:h-11 w-full px-1">
@@ -80,9 +78,8 @@ export const Navbar = ({ isLoaded, menuOpen, setMenuOpen, activeSection, setActi
           aria-label="Toggle Navigation Menu"
         >
           <span
-            className={`transform transition-transform duration-300 ${
-              menuOpen ? "rotate-90 text-cyan-400" : "rotate-0"
-            }`}
+            className={`transform transition-transform duration-300 ${menuOpen ? "rotate-90 text-cyan-400" : "rotate-0"
+              }`}
           >
             {menuOpen ? "✕" : "☰"}
           </span>
@@ -97,11 +94,10 @@ export const Navbar = ({ isLoaded, menuOpen, setMenuOpen, activeSection, setActi
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={() => setActiveSection && setActiveSection(item.id)}
-                className={`text-sm font-medium transition-all duration-300 rounded-full px-4 py-1.5 ${
-                  isActive
+                className={`text-sm font-medium transition-all duration-300 rounded-full px-4 py-1.5 ${isActive
                     ? "text-cyan-400 font-semibold bg-cyan-500/15 border border-cyan-500/30"
                     : "text-gray-300 hover:text-white hover:bg-white/10"
-                }`}
+                  }`}
               >
                 {item.label}
               </a>
@@ -112,11 +108,10 @@ export const Navbar = ({ isLoaded, menuOpen, setMenuOpen, activeSection, setActi
 
       {/* Dynamic Island Mobile Expanded Options */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-400 ease-in-out ${
-          menuOpen
+        className={`md:hidden overflow-hidden transition-all duration-400 ease-in-out ${menuOpen
             ? "max-h-[400px] opacity-100 mt-3 pt-3 border-t border-white/15"
             : "max-h-0 opacity-0 mt-0 pt-0 border-t-0 pointer-events-none"
-        }`}
+          }`}
       >
         <div className="flex flex-col space-y-1.5 py-1">
           {navItems.map((item) => {
@@ -129,11 +124,10 @@ export const Navbar = ({ isLoaded, menuOpen, setMenuOpen, activeSection, setActi
                   setMenuOpen(false);
                   if (setActiveSection) setActiveSection(item.id);
                 }}
-                className={`text-center py-2.5 px-4 rounded-xl text-base font-semibold transition-all duration-200 ${
-                  isActive
+                className={`text-center py-2.5 px-4 rounded-xl text-base font-semibold transition-all duration-200 ${isActive
                     ? "text-cyan-400 bg-cyan-500/15 border border-cyan-500/30"
                     : "text-gray-200 hover:text-white hover:bg-white/5 active:bg-white/10"
-                }`}
+                  }`}
               >
                 {item.label}
               </a>
