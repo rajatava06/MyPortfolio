@@ -1,10 +1,31 @@
 import React, { useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
-import { FaInstagram, FaLinkedin, FaGithub, FaEnvelope, FaExternalLinkAlt, FaCodeBranch } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaGithub, FaEnvelope, FaExternalLinkAlt, FaCodeBranch, FaCopy, FaCheck, FaSync } from "react-icons/fa";
 
 export const Social = () => {
   const [chartLoading, setChartLoading] = useState(true);
   const [chartError, setChartError] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [cacheBuster, setCacheBuster] = useState(() => Date.now());
+
+  const handleEmailClick = (e, emailUrl) => {
+    e.preventDefault();
+    window.location.href = emailUrl;
+  };
+
+  const copyEmailToClipboard = (e, email) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const handleRefreshChart = () => {
+    setChartLoading(true);
+    setChartError(false);
+    setCacheBuster(Date.now());
+  };
 
   const socialLinks = [
     {
@@ -12,6 +33,8 @@ export const Social = () => {
       handle: "rajatava2006@gmail.com",
       owner: "Rajatava Das",
       url: "mailto:rajatava2006@gmail.com",
+      isMail: true,
+      emailAddress: "rajatava2006@gmail.com",
       icon: FaEnvelope,
       iconColor: "group-hover:text-red-400",
       borderColor: "hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]",
@@ -23,6 +46,7 @@ export const Social = () => {
       handle: "Rajatava Das",
       owner: "Rajatava Das",
       url: "https://www.linkedin.com/in/rajatava-das-8ba113317?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      isMail: false,
       icon: FaLinkedin,
       iconColor: "group-hover:text-blue-400",
       borderColor: "hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
@@ -34,6 +58,7 @@ export const Social = () => {
       handle: "@rajatava_",
       owner: "Rajatava Das",
       url: "https://instagram.com/",
+      isMail: false,
       icon: FaInstagram,
       iconColor: "group-hover:text-pink-400",
       borderColor: "hover:border-pink-500/50 hover:shadow-[0_0_30px_rgba(236,72,153,0.3)]",
@@ -64,11 +89,12 @@ export const Social = () => {
                 <a
                   key={index}
                   href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={item.isMail ? undefined : "_blank"}
+                  rel={item.isMail ? undefined : "noopener noreferrer"}
+                  onClick={item.isMail ? (e) => handleEmailClick(e, item.url) : undefined}
                   className={`group relative rounded-2xl p-7 md:p-8 bg-gradient-to-b from-gray-900/90 to-black/90 border border-white/10 
                     transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] ${item.borderColor} 
-                    flex flex-col justify-between overflow-hidden shadow-xl min-h-[300px]`}
+                    flex flex-col justify-between overflow-hidden shadow-xl min-h-[300px] cursor-pointer`}
                 >
                   {/* Glass highlight effect on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -79,9 +105,23 @@ export const Social = () => {
                       <div className={`p-4 rounded-2xl bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
                         <Icon className={`text-5xl md:text-6xl text-gray-200 transition-colors duration-300 ${item.iconColor}`} />
                       </div>
-                      <span className={`text-xs px-3 py-1 rounded-full font-semibold border ${item.badgeBg} transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:scale-105`}>
-                        {item.name}
-                      </span>
+
+                      <div className="flex items-center space-x-2">
+                        {item.isMail && (
+                          <button
+                            type="button"
+                            title="Copy email address"
+                            onClick={(e) => copyEmailToClipboard(e, item.emailAddress)}
+                            className="p-1.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20 transition text-xs flex items-center gap-1"
+                          >
+                            {copiedEmail ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                            <span>{copiedEmail ? "Copied!" : "Copy"}</span>
+                          </button>
+                        )}
+                        <span className={`text-xs px-3 py-1 rounded-full font-semibold border ${item.badgeBg} transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:scale-105`}>
+                          {item.name}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Platform Title */}
@@ -108,7 +148,7 @@ export const Social = () => {
                       {item.handle}
                     </span>
                     <span className="flex items-center space-x-1.5 text-blue-400 group-hover:translate-x-1 transition-transform font-semibold text-sm">
-                      <span>Visit</span>
+                      <span>{item.isMail ? "Send Mail" : "Visit"}</span>
                       <FaExternalLinkAlt className="text-xs" />
                     </span>
                   </div>
@@ -138,18 +178,32 @@ export const Social = () => {
                 </div>
               </div>
 
-              <a
-                href="https://github.com/rajatava06"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium 
-                  border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-500 
-                  hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-200 self-start md:self-auto"
-              >
-                <FaCodeBranch />
-                <span>View Full GitHub Profile</span>
-                <FaExternalLinkAlt className="text-xs" />
-              </a>
+              <div className="flex items-center space-x-3">
+                <button
+                  type="button"
+                  onClick={handleRefreshChart}
+                  title="Refresh Contribution Graph"
+                  className="inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-medium 
+                    border border-gray-700 bg-gray-800/80 text-gray-300 hover:text-white hover:border-gray-500 
+                    transition duration-200"
+                >
+                  <FaSync className={chartLoading ? "animate-spin text-emerald-400" : ""} />
+                  <span>Refresh</span>
+                </button>
+
+                <a
+                  href="https://github.com/rajatava06"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium 
+                    border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-500 
+                    hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-200"
+                >
+                  <FaCodeBranch />
+                  <span>View Full Profile</span>
+                  <FaExternalLinkAlt className="text-xs" />
+                </a>
+              </div>
             </div>
 
             {/* Contribution Heatmap Wrapper */}
@@ -162,7 +216,8 @@ export const Social = () => {
               )}
 
               <img
-                src="https://ghchart.rshah.org/40c463/rajatava06"
+                key={cacheBuster}
+                src={`https://ghchart.rshah.org/40c463/rajatava06?t=${cacheBuster}`}
                 alt="Rajatava Das GitHub Contribution Chart"
                 className={`max-w-full h-auto transition-opacity duration-500 ${chartLoading ? "opacity-0 absolute" : "opacity-100"
                   }`}
@@ -182,7 +237,7 @@ export const Social = () => {
                     href="https://github.com/rajatava06"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-4 py-2 text-xs font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition"
+                    className="inline-block px-4 py-2 text-xs font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-500 transition"
                   >
                     Go to github.com/rajatava06
                   </a>
@@ -197,15 +252,19 @@ export const Social = () => {
                 <span>Active Developer • KIIT CSE</span>
               </div>
               <div className="flex items-center space-x-4">
-                <span className="hover:text-gray-200 transition cursor-pointer">
+                <span className="text-gray-400 hover:text-gray-200 transition">
                   User: <strong className="text-gray-200">rajatava06</strong>
                 </span>
                 <span>•</span>
-                <span className="hover:text-gray-200 transition cursor-pointer">
+                <span className="text-gray-400 hover:text-gray-200 transition">
                   Developer: <strong className="text-gray-200">Rajatava Das</strong>
                 </span>
               </div>
             </div>
+
+            <p className="mt-3 text-[11px] text-gray-500 text-center">
+              💡 <em>Refresh for live fetch of GitHub commits.</em>
+            </p>
           </div>
         </div>
       </RevealOnScroll>
