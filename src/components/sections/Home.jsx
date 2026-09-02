@@ -1,4 +1,5 @@
 import { RevealOnScroll } from "../RevealOnScroll";
+import { triggerHaptic } from "../../utils/haptic";
 
 export const Home = () => {
   return (
@@ -20,6 +21,7 @@ export const Home = () => {
           <div className="flex justify-center space-x-4">
             <a
               href="#projects"
+              onClick={() => triggerHaptic()}
               className="border border-red-500/50 text-blue-500 py-3 px-6 rounded font-medium transition-all duration-200 
              hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59, 130, 246, 0.2)] hover:bg-blue-500/10"
             >
@@ -28,6 +30,7 @@ export const Home = () => {
 
             <a
               href="#contact"
+              onClick={() => triggerHaptic()}
               className="border border-blue-500/50 text-red-500 py-3 px-6 rounded font-medium transition-all duration-200 
              hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(59, 130, 246, 0.2)] hover:bg-blue-500/10"
             >

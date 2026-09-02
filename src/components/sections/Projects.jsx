@@ -61,13 +61,12 @@ export const Projects = () => {
               transition-all
             "
             >
-              <h3 className="text-xl font-bold mb-2">E-Commerce Web App</h3>
+              <h3 className="text-xl font-bold mb-2">KisanSetu</h3>
               <p className="text-gray-400 mb-4">
-                Full-stack e-commerce web app with modern UI, secure payment
-                integration, and customizable product inventory. Build for interactive user shopping.
+                KisanSetu is a digitized crop procurement scheduling, mandi slot booking and live queue tracking platform designed for Indian agriculture.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {["Next.js", "TypeScript", "Stripe", "PostgreSQL"].map(
+                {["Next.js", "NodeJs", "Supabase", "PostgreSQL"].map(
                   (tech) => (
                     <span
                       key={tech}
@@ -86,7 +85,7 @@ export const Projects = () => {
               </div>
               <div className="flex justify-between items-center">
                 <a
-                  href="https://github.com/rajatava06/ecommerce-nextjs-fullstack-app"
+                  href="https://kalakriti-seven.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-red-400 hover:text-blue-300 transition-colors my-4"

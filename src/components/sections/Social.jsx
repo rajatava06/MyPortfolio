@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
 import { FaInstagram, FaLinkedin, FaGithub, FaEnvelope, FaExternalLinkAlt, FaCodeBranch, FaCopy, FaCheck, FaSync } from "react-icons/fa";
+import { triggerHaptic } from "../../utils/haptic";
 
 export const Social = () => {
   const [chartLoading, setChartLoading] = useState(true);
@@ -10,18 +11,21 @@ export const Social = () => {
 
   const handleEmailClick = (e, emailUrl) => {
     e.preventDefault();
+    triggerHaptic();
     window.location.href = emailUrl;
   };
 
   const copyEmailToClipboard = (e, email) => {
     e.preventDefault();
     e.stopPropagation();
+    triggerHaptic();
     navigator.clipboard.writeText(email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
   const handleRefreshChart = () => {
+    triggerHaptic();
     setChartLoading(true);
     setChartError(false);
     setCacheBuster(Date.now());
