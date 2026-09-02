@@ -74,7 +74,7 @@ export const Social = () => {
   return (
     <section id="social" className="min-h-screen flex items-center justify-center py-20 relative">
       <RevealOnScroll>
-        <div className="max-w-5xl mx-auto px-4 w-full">
+        <div className="max-w-6xl mx-auto px-4 w-full">
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-500 via-purple-400 to-blue-400 bg-clip-text text-transparent">
@@ -86,7 +86,7 @@ export const Social = () => {
           </div>
 
           {/* Social Cards Grid - Centered 3 Cards Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12 max-w-4xl mx-auto justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12 max-w-full mx-auto justify-center">
             {socialLinks.map((item, index) => {
               const Icon = item.icon;
               return (
@@ -96,7 +96,7 @@ export const Social = () => {
                   target={item.isMail ? undefined : "_blank"}
                   rel={item.isMail ? undefined : "noopener noreferrer"}
                   onClick={item.isMail ? (e) => handleEmailClick(e, item.url) : undefined}
-                  className={`group relative rounded-2xl p-7 md:p-8 bg-gradient-to-b from-gray-900/90 to-black/90 border border-white/10 
+                  className={`group relative rounded-2xl p-6 md:p-8 bg-gradient-to-b from-gray-900/90 to-black/90 border border-white/10 
                     transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] ${item.borderColor} 
                     flex flex-col justify-between overflow-hidden shadow-xl min-h-[300px] cursor-pointer`}
                 >
@@ -105,24 +105,24 @@ export const Social = () => {
 
                   {/* Top Header: Icon + Hover Badge */}
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className={`p-4 rounded-2xl bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                        <Icon className={`text-5xl md:text-6xl text-gray-200 transition-colors duration-300 ${item.iconColor}`} />
+                    <div className="flex items-center justify-between mb-6 gap-2">
+                      <div className="p-3.5 md:p-4 rounded-2xl bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 shrink-0">
+                        <Icon className={`text-4xl md:text-5xl lg:text-6xl text-gray-200 transition-colors duration-300 ${item.iconColor}`} />
                       </div>
 
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center gap-1.5 flex-wrap justify-end">
                         {item.isMail && (
                           <button
                             type="button"
                             title="Copy email address"
                             onClick={(e) => copyEmailToClipboard(e, item.emailAddress)}
-                            className="p-1.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20 transition text-xs flex items-center gap-1"
+                            className="p-1.5 px-2.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20 transition text-xs flex items-center gap-1 shrink-0"
                           >
                             {copiedEmail ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
                             <span>{copiedEmail ? "Copied!" : "Copy"}</span>
                           </button>
                         )}
-                        <span className={`text-xs px-3 py-1 rounded-full font-semibold border ${item.badgeBg} transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:scale-105`}>
+                        <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${item.badgeBg} transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:scale-105 shrink-0 whitespace-nowrap`}>
                           {item.name}
                         </span>
                       </div>
@@ -147,11 +147,11 @@ export const Social = () => {
                   </div>
 
                   {/* Bottom Handle & CTA */}
-                  <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400 group-hover:text-gray-200">
-                    <span className="font-mono text-gray-300 text-sm truncate max-w-[160px]" title={item.handle}>
+                  <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3 text-xs text-gray-400 group-hover:text-gray-200">
+                    <span className="font-mono text-gray-300 text-xs sm:text-sm truncate min-w-0 flex-1" title={item.handle}>
                       {item.handle}
                     </span>
-                    <span className="flex items-center space-x-1.5 text-blue-400 group-hover:translate-x-1 transition-transform font-semibold text-sm">
+                    <span className="flex items-center space-x-1.5 text-blue-400 group-hover:translate-x-1 transition-transform font-semibold text-xs sm:text-sm shrink-0 whitespace-nowrap">
                       <span>{item.isMail ? "Send Mail" : "Visit"}</span>
                       <FaExternalLinkAlt className="text-xs" />
                     </span>
