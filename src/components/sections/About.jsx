@@ -9,7 +9,7 @@ export const About = () => {
     "Dart",
   ];
 
-  const backendSkills = ["Node.js", "Python", "AWS", "MongoDB", "Postman"];
+  const backendSkills = ["Node.js", "Python", "PostgreSQL", "MongoDB", "Postman"];
 
   return (
     <section
@@ -83,10 +83,10 @@ export const About = () => {
                 <div>
                   <h4 className="font-semibold">
                     {" "}
-                    Senior Technical Executive - <p>FED KIIT (Present){" "}</p>
+                    Deputy Technical Director - <p>FED KIIT (Present){" "}</p>
                   </h4>
                   <p>
-                    Manage and maintain FED KIIT website.
+                    Leading Tech Team and Managing FED KIIT Website.
                   </p>
                 </div>
 
