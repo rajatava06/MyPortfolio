@@ -9,21 +9,250 @@ body {
   color: #3e65b3;
 }
 
-/* Background Small Boxed Grid Effect */
-.bg-grid-boxes {
-  background-size: 28px 28px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+/* ---------- Glowing grid background ---------- */
+:root {
+  --grid-size: 60px;
+  --grid-line: rgba(37, 99, 235, 0.09);
+  --grid-line-bright: rgba(59, 130, 246, 0.55);
 }
 
-.bg-radial-glow {
-  background: radial-gradient(circle at 50% 25%, rgba(59, 130, 246, 0.15) 0%, rgba(239, 68, 68, 0.07) 45%, transparent 75%);
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 0%, #050b1f 0%, #000 70%);
+  contain: strict;
 }
 
+.grid-bg > div {
+  position: absolute;
+  inset: 0;
+}
 
+.grid-bg__base,
+.grid-bg__glow {
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: center center;
+}
 
+.grid-bg__base {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+}
 
+/* Brighter copies of the grid, each revealed through a soft static mask and
+   pulsed with opacity only (compositor-only, no repaint). */
+.grid-bg__glow {
+  background-image:
+    linear-gradient(to right, var(--grid-line-bright) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-bright) 1px, transparent 1px);
+  opacity: 0;
+  will-change: opacity;
+  animation: grid-pulse 9s ease-in-out infinite;
+}
+
+.grid-bg__glow--a {
+  -webkit-mask-image: radial-gradient(circle 260px at 22% 28%, #000, transparent 70%);
+  mask-image: radial-gradient(circle 260px at 22% 28%, #000, transparent 70%);
+}
+
+.grid-bg__glow--b {
+  -webkit-mask-image: radial-gradient(circle 320px at 78% 62%, #000, transparent 70%);
+  mask-image: radial-gradient(circle 320px at 78% 62%, #000, transparent 70%);
+  animation-delay: -3s;
+}
+
+.grid-bg__glow--c {
+  -webkit-mask-image: radial-gradient(circle 220px at 48% 88%, #000, transparent 70%);
+  mask-image: radial-gradient(circle 220px at 48% 88%, #000, transparent 70%);
+  animation-delay: -6s;
+}
+
+/* Soft ambient light drifting behind the grid */
+.grid-bg__orb {
+  inset: auto;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.grid-bg__orb--a {
+  top: -20vmax;
+  left: -15vmax;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.22) 0%, transparent 65%);
+  animation: orb-drift-a 26s ease-in-out infinite alternate;
+}
+
+.grid-bg__orb--b {
+  bottom: -25vmax;
+  right: -20vmax;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.16) 0%, transparent 65%);
+  animation: orb-drift-b 32s ease-in-out infinite alternate;
+}
+
+.grid-bg__vignette {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes orb-drift-a {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(18vw, 14vh, 0); }
+}
+
+@keyframes orb-drift-b {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-16vw, -12vh, 0); }
+}
+
+/* ---------- Loading screen ---------- */
+.loader {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.loader--exit {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.loader__grid,
+.loader__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.loader__grid {
+  background-size: 60px 60px;
+  background-position: center center;
+  background-image:
+    linear-gradient(to right, rgba(59, 130, 246, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.14) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(circle 340px at center, #000, transparent 75%);
+  mask-image: radial-gradient(circle 340px at center, #000, transparent 75%);
+  animation: loader-grid-in 1.2s ease-out both;
+}
+
+.loader__glow {
+  background: radial-gradient(circle 300px at center, rgba(37, 99, 235, 0.22), transparent 70%);
+  animation: loader-breathe 2.4s ease-in-out infinite;
+}
+
+.loader__content {
+  animation: loader-content-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.loader__rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.loader__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  will-change: transform;
+}
+
+.loader__ring--1 {
+  width: 220px;
+  height: 220px;
+  margin: -110px 0 0 -110px;
+  border-top-color: rgba(59, 130, 246, 0.7);
+  border-right-color: rgba(59, 130, 246, 0.15);
+  animation: loader-spin 1.6s linear infinite;
+}
+
+.loader__ring--2 {
+  width: 290px;
+  height: 290px;
+  margin: -145px 0 0 -145px;
+  border-bottom-color: rgba(96, 165, 250, 0.45);
+  border-left-color: rgba(96, 165, 250, 0.1);
+  animation: loader-spin 2.6s linear infinite reverse;
+}
+
+.loader__ring--3 {
+  width: 360px;
+  height: 360px;
+  margin: -180px 0 0 -180px;
+  border-color: rgba(37, 99, 235, 0.08);
+  border-top-color: rgba(37, 99, 235, 0.35);
+  animation: loader-spin 4s linear infinite;
+}
+
+.loader__char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(4px);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+}
+
+.loader__char--in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  text-shadow: 0 0 18px rgba(59, 130, 246, 0.55);
+}
+
+.loader__bar {
+  transform-origin: left center;
+  box-shadow: 0 0 12px #3b82f6;
+  transition: transform 0.15s linear;
+}
+
+.loader__shine {
+  position: absolute;
+  inset: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(191, 219, 254, 0.9), transparent);
+  animation: loading 1s ease-in-out infinite;
+}
+
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loader-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes loader-grid-in {
+  from { opacity: 0; transform: scale(1.15); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes loader-content-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-bg *,
+  .loader,
+  .loader * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .grid-bg__glow { opacity: 0.4; }
+}
 
 @layer utilities {
   @keyframes blink {
@@ -49,9 +278,6 @@ body {
     }
   }
 
-  .animate-loading-bar {
-    animation: loading 0.8s ease infinite;
-  }
 }
 
 .reveal {

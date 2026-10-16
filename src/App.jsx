@@ -11,6 +11,7 @@ import { Projects } from "./components/sections/Projects";
 import { Social } from "./components/sections/Social";
 import { Contact } from "./components/sections/Contact";
 import { Footer } from "./components/Footer";
+import { GridBackground } from "./components/GridBackground";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,14 +50,13 @@ function App() {
 
   return (
     <>
-      {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}{" "}
+      {!isLoaded && <LoadingScreen onComplete={() => setIsLoaded(true)} />}
       <div
         className={`min-h-screen transition-opacity duration-700 ${
           isLoaded ? "opacity-100" : "opacity-0"
         } bg-black text-gray-100 relative`}
       >
-        {/* Background Faded Boxed Grid Effect + Soft Ambient Radial Glow */}
-        <div className="fixed inset-0 pointer-events-none z-0 bg-grid-boxes bg-radial-glow" />
+        <GridBackground />
 
         <div className="relative z-10">
           <Navbar

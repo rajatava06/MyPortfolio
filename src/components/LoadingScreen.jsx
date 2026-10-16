@@ -1,35 +1,82 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const FULL_TEXT = "<rajatava.06>";
+const TYPE_SPEED = 110;
+const HOLD_AFTER_TYPE = 1300;
+const EXIT_DURATION = 600;
 
 export const LoadingScreen = ({ onComplete }) => {
-  const [text, setText] = useState("");
-  const fullText = "<rajatava.06>";
+  const [count, setCount] = useState(0);
+  const [exiting, setExiting] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
+    const timers = [];
     let index = 0;
+
     const interval = setInterval(() => {
-      setText(fullText.substring(0, index));
       index++;
+      setCount(index);
 
-      if (index > fullText.length) {
+      if (index >= FULL_TEXT.length) {
         clearInterval(interval);
-
-        setTimeout(() => {
-          onComplete();
-        }, 350);
+        timers.push(
+          setTimeout(() => setExiting(true), HOLD_AFTER_TYPE),
+          setTimeout(() => onCompleteRef.current(), HOLD_AFTER_TYPE + EXIT_DURATION)
+        );
       }
-    }, 45);
+    }, TYPE_SPEED);
 
-    return () => clearInterval(interval);
-  }, [onComplete]);
+    return () => {
+      clearInterval(interval);
+      timers.forEach(clearTimeout);
+    };
+  }, []);
+
+  const progress = Math.round((count / FULL_TEXT.length) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black text-gray-100 flex flex-col items-center justify-center">
-      <div className="mb-4 text-4xl font-mono font-bold">
-        {text} <span className="animate-blink ml-1"> | </span>
-      </div>
+    <div
+      className={`loader fixed inset-0 z-50 bg-black text-gray-100 flex flex-col items-center justify-center overflow-hidden ${
+        exiting ? "loader--exit" : ""
+      }`}
+    >
+      <div className="loader__grid" aria-hidden="true" />
+      <div className="loader__glow" aria-hidden="true" />
 
-      <div className="w-[280px] h-[2px] bg-gray-800 rounded relative overflow-hidden">
-        <div className="w-[40%] h-full bg-blue-500 shadow-[0_0_15px_#3b82f6] animate-loading-bar"></div>
+      <div className="loader__content relative flex flex-col items-center">
+        <div className="loader__rings" aria-hidden="true">
+          <span className="loader__ring loader__ring--1" />
+          <span className="loader__ring loader__ring--2" />
+          <span className="loader__ring loader__ring--3" />
+        </div>
+
+        <div className="relative mb-6 text-3xl sm:text-4xl font-mono font-bold whitespace-pre">
+          {FULL_TEXT.split("").map((ch, i) => (
+            <span
+              key={i}
+              className={`loader__char ${i < count ? "loader__char--in" : ""}`}
+            >
+              {ch}
+            </span>
+          ))}
+          <span className="animate-blink ml-1 text-blue-400">|</span>
+        </div>
+
+        <div className="w-[260px] sm:w-[300px]">
+          <div className="h-[2px] bg-gray-800 rounded relative overflow-hidden">
+            <div
+              className="loader__bar h-full bg-blue-500"
+              style={{ transform: `scaleX(${progress / 100})` }}
+            />
+            <div className="loader__shine" />
+          </div>
+          <div className="mt-3 flex justify-between font-mono text-[11px] tracking-widest text-blue-300/60">
+            <span>LOADING</span>
+            <span>{progress}%</span>
+          </div>
+        </div>
       </div>
     </div>
   );
